@@ -59,7 +59,11 @@ func process(w http.ResponseWriter, r *http.Request) {
 	}
 
 	// get form and client addr
-	client := r.RemoteAddr
+	//client := r.RemoteAddr
+	client := r.Header.Get("CF-Connecting-IP")
+	if client == "" {
+		client = r.RemoteAddr
+	}
 	sender := r.Form.Get("from")
 	content := r.Form.Get("content")
 	timestamp := r.Form.Get("timestamp")
