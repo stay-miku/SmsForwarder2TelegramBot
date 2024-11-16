@@ -12,6 +12,12 @@ type Config struct {
 
 	Port   string `yaml:"port"`
 	Secret string `yaml:"secret"`
+
+	Https struct {
+		Enable bool   `yaml:"enable"`
+		Cert   string `yaml:"cert"`
+		Key    string `yaml:"key"`
+	} `yaml:"https"`
 }
 
 var config Config

@@ -10,8 +10,17 @@ func main() {
 
 	http.HandleFunc("/post", process)
 
-	err := http.ListenAndServe(":"+config.Port, nil)
-	if err != nil {
-		panic(err)
+	if config.Https.Enable {
+		log.Printf("Enable HTTPS")
+		err := http.ListenAndServeTLS(":"+config.Port, config.Https.Cert, config.Https.Key, nil)
+		if err != nil {
+			panic(err)
+		}
+		return
+	} else {
+		err := http.ListenAndServe(":"+config.Port, nil)
+		if err != nil {
+			panic(err)
+		}
 	}
 }
